@@ -23,8 +23,30 @@ export class PremiumService {
 
   errorMatcher = new CrossFieldErrorMatcher();
 
+  occupationRatings = [
+    { id: 'Light Manual', value: 'Cleaner-Light Manual' },
+    { id: 'Professional', value: 'Doctor-Light Manual' },
+    { id: 'White Collar', value: 'Author-White Collar' },
+    { id: 'Heavy Manual', value: 'Farmer-Heavy Manual' },
+    { id: 'Heavy Manual', value: 'Mechanic-Heavy Manual' },
+    { id: 'Light Manual', value: 'Florist-Light Manual' }];
+
+    ratingFactors = [
+      { id: 'Professional', value: 1.0 },
+      { id: 'White Collar', value: 1.25 },
+      { id: 'Light Manual', value: 1.5 },
+      { id: 'Heavy Manual', value: 1.75 }];
+
+      calculateMonthlyPremium(amount:number,factor:number,age:number):number
+      {
+        return (amount*factor*age)/(1000*12);
+      }
+
  
 }
+
+
+
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

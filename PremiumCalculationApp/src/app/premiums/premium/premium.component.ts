@@ -17,24 +17,13 @@ export class PremiumComponent implements OnInit {
   chosenOccupation:string = '' ;
   amount:number = 0 ;
   age:number = 0 ;
-
-
-  occupationRatings = [
-    { id: 'Light Manual', value: 'Cleaner-Light Manual' },
-    { id: 'Professional', value: 'Doctor-Light Manual' },
-    { id: 'White Collar', value: 'Author-White Collar' },
-    { id: 'Heavy Manual', value: 'Farmer-Heavy Manual' },
-    { id: 'Heavy Manual', value: 'Mechanic-Heavy Manual' },
-    { id: 'Light Manual', value: 'Florist-Light Manual' }];
-
-    ratingFactors = [
-      { id: 'Professional', value: 1.0 },
-      { id: 'White Collar', value: 1.25 },
-      { id: 'Light Manual', value: 1.5 },
-      { id: 'Heavy Manual', value: 1.75 }];
-
+  occupationRatings;
+  ratingFactors;
 
   ngOnInit() {
+
+    this.occupationRatings = this.service.occupationRatings;
+    this.ratingFactors = this.service.ratingFactors;
   }
 
   onClear() {
@@ -60,7 +49,7 @@ export class PremiumComponent implements OnInit {
       let selectedFactor = this.ratingFactors.find(x=> x.id == this.chosenOccupation);
       this.chosenFactor = selectedFactor.value;
 
-      this.premium = (this.amount*this.chosenFactor*this.age)/(1000*12);
+      this.premium = this.service.calculateMonthlyPremium(this.amount,this.chosenFactor,this.age);
 
     }
 
