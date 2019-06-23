@@ -12,7 +12,7 @@ import { OnlyNumber } from '../../shared/OnlyNumber.directive';
 })
 export class PremiumComponent implements OnInit {
 
-  constructor(private service: PremiumService) { 
+  constructor(public service: PremiumService) { 
   }
 
   premium:number = -1 ;
