@@ -8,12 +8,16 @@ import { AppComponent } from './app.component';
 import { PremiumBaseComponent } from './premiums/premiumBase.component';
 import { PremiumComponent } from './premiums/premium/premium.component';
 import { PremiumService } from './shared/premium.service';
+import { OnlyNumber } from './shared/OnlyNumber.directive';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PremiumBaseComponent,
-    PremiumComponent
+    PremiumComponent,
+    OnlyNumber,
   ],
   imports: [
     BrowserModule,

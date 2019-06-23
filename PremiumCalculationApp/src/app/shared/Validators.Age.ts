@@ -7,21 +7,13 @@ export class AgeValidators{
         let DOBEntered = control.get('dateOfBirth');
 
         let ageCalculated = AgeValidators.ageFromDateOfBirth(DOBEntered.value);
-        //console.log('ageEntered')
-        //console.log(ageEntered)
-        //console.log('DOBEntered')
-        //console.log(DOBEntered)
-        //console.log('ageCalculated')
-        //console.log(ageCalculated)
-
+    
         if(ageEntered.value !== ageCalculated.toString())
         {
-            //console.log('ageMustMatch : true')
             return {ageMustMatch : true};
         }
         else
         {
-            //console.log('ageMustMatch : null')
             return null;
         }
     }

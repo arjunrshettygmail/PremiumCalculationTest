@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PremiumService } from '../../shared/premium.service';
+import { OnlyNumber } from '../../shared/OnlyNumber.directive';
+
+
 
 @Component({
   selector: 'app-premium',
@@ -32,22 +35,15 @@ export class PremiumComponent implements OnInit {
     this.ratingFactors = this.service.ratingFactors;
   }
 
-  onClear() {
-    console.log('on clear was calld');
-    console.log(this.service.form.value);
-    
-  }
+  
 
   selectionChanged(){
-    console.log('on change was called');
     if(this.service.form.get('occupation').value == "-1")
     {
       this.service.form.controls['occupation'].setErrors({'notSelected': true});
     }
     else
     {
-      console.log('inside else');
-      
       this.service.form.get('deathSumInsured');
       this.amount = this.service.form.get('deathSumInsured').value
       this.ageSelected = this.service.form.get('age').value
