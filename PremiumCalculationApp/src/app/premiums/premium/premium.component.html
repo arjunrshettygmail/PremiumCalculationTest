@@ -4,27 +4,25 @@
       <div class="controls-container">
         
         <mat-form-field>
-          <input formControlName="fullName" matInput  placeholder="Name*" autocomplete="off">
-          <mat-error *ngIf="service.form.controls['fullName'].errors?.required">This field is mandatory.</mat-error>
-          <mat-error *ngIf="service.form.controls['fullName'].errors?.pattern">Only alphabets allowed in Name</mat-error>
-          <mat-error *ngIf="service.form.get('fullName').touched   && service.form.controls['fullName'].errors?.minlength">Name should have atleast 2 characters.</mat-error>
-          <mat-error *ngIf="service.form.get('fullName').touched   && service.form.controls['fullName'].errors?.maxlength">Maximum length of Name allowed is 20 characters.</mat-error>
+          <input formControlName="fullName" matInput  placeholder="Name*" autocomplete="off" maxlength="21">
+          <mat-error *ngIf="fullName.errors?.required">This field is mandatory.</mat-error>
+          <mat-error *ngIf="fullName.errors?.pattern">Only alphabets allowed in Name</mat-error>
+          <mat-error *ngIf="fullName.touched   && fullName.errors?.minlength">Name should have atleast 2 characters.</mat-error>
+          <mat-error *ngIf="fullName.touched   && fullName.errors?.maxlength">Maximum length of Name allowed is 20 characters.</mat-error>
         </mat-form-field>
         
-        
-
         <mat-form-field>
-          <input formControlName="age" matInput (keypress)="numberOnly($event)" placeholder="Age*" autocomplete="off">
+          <input formControlName="age" matInput (keypress)="numberOnly($event)" placeholder="Age*" autocomplete="off" maxlength="3">
           
           <mat-error *ngIf="service.form.controls['age'].errors?.required">This field is mandatory.</mat-error>
-          <mat-error *ngIf="service.form.get('age').touched   && (service.form.controls['age'].errors?.min ||  service.form.controls['age'].errors?.max  )">Please enter a valid age.</mat-error>
+          <mat-error *ngIf="age.touched   && (age.errors?.min ||  age.errors?.max  )">Please enter a valid age.</mat-error>
           
         </mat-form-field>
 
         
         <mat-form-field>
           <input formControlName="dateOfBirth" matInput [matDatepicker]="picker" placeholder="Date of Birth*" autocomplete="off" [errorStateMatcher]="service.errorMatcher">
-          <mat-error *ngIf="service.form.controls['dateOfBirth'].errors?.required">Please enter a valid date.</mat-error>
+          <mat-error *ngIf="dateOfBirth.errors?.required">Please enter a valid date.</mat-error>
           <mat-error *ngIf="service.form.errors?.ageMustMatch">Age entered and date of Birth do not match</mat-error>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -35,19 +33,19 @@
           <input formControlName="deathSumInsured" matInput (keypress)="numberOnly($event)" placeholder="Death - Sum Insured*" autocomplete="off">
           <span matPrefix>$&nbsp;</span>
           <span matSuffix>.00</span>
-          <mat-error *ngIf="service.form.controls['deathSumInsured'].errors?.required">This field is mandatory.</mat-error>
-          <mat-error *ngIf="service.form.get('deathSumInsured').touched   && service.form.controls['deathSumInsured'].errors?.min">Sum Insured should be greater than {{service.form.controls['deathSumInsured'].errors.min.min}}.</mat-error>
-          <mat-error *ngIf="service.form.get('deathSumInsured').touched   && service.form.controls['deathSumInsured'].errors?.max">Maximum Sum Insured is {{service.form.controls['deathSumInsured'].errors.max.max}}.</mat-error>
+          <mat-error *ngIf="deathSumInsured.errors?.required">This field is mandatory.</mat-error>
+          <mat-error *ngIf="deathSumInsured.touched   && deathSumInsured.errors?.min">Sum Insured should be greater than {{deathSumInsured.errors.min.min}}.</mat-error>
+          <mat-error *ngIf="deathSumInsured.touched   && deathSumInsured.errors?.max">Maximum Sum Insured is {{deathSumInsured.errors.max.max}}.</mat-error>
         </mat-form-field>
 
         
         
         <mat-form-field>
           <mat-select formControlName="occupation" placeholder="Select an Occupation to calulate Premium" (selectionChange)="selectionChanged()"  
-          [disabled]="!(   (service.form.get('fullName').touched && service.form.get('fullName').valid)
-                       && (service.form.get('age').touched && service.form.get('age').valid)
-                       && (service.form.get('dateOfBirth').touched && service.form.get('dateOfBirth').valid)
-                       && (service.form.get('deathSumInsured').touched && service.form.get('deathSumInsured').valid)
+          [disabled]="!(   (fullName.touched && fullName.valid)
+                       && (age.touched && age.valid)
+                       && (dateOfBirth.touched && dateOfBirth.valid)
+                       && (deathSumInsured.touched && deathSumInsured.valid)
                        && !(service.form.errors?.ageMustMatch)
                        
                        )" 
@@ -58,15 +56,15 @@
             <ng-container *ngFor="let occupationRating of occupationRatings">
               <mat-option value="{{occupationRating.id}}">{{occupationRating.value}}</mat-option>
             </ng-container>
-            <mat-error *ngIf="service.form.controls['occupation'].errors?.required">This field is mandatory.</mat-error>
-            <mat-error *ngIf="service.form.controls['occupation'].errors?.notSelected">Please choose an occupation.</mat-error>
+            <mat-error *ngIf="occupation.errors?.required">This field is mandatory.</mat-error>
+            <mat-error *ngIf="occupation.errors?.notSelected">Please choose an occupation.</mat-error>
           </mat-select>
         </mat-form-field>
         <div class="button-row">
           <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Submit</button>
           <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
         </div>
-        <mat-card smat-headline *ngIf="premium > 0">Your Premium is ${{premium | number:'1.0-1'}}</mat-card>
+        <mat-card smat-headline *ngIf="premium > 0">Your Monthly Premium is ${{premium | number:'1.0-1'}}</mat-card>
 
         
         

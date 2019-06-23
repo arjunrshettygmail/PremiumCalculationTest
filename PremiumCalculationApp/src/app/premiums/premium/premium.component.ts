@@ -16,9 +16,15 @@ export class PremiumComponent implements OnInit {
   chosenFactor:number = 0 ;
   chosenOccupation:string = '' ;
   amount:number = 0 ;
-  age:number = 0 ;
+  ageSelected:number = 0 ;
   occupationRatings;
   ratingFactors;
+
+  get fullName() { return this.service.form.get('fullName'); }
+  get age() { return this.service.form.get('age'); }
+  get dateOfBirth() { return this.service.form.get('dateOfBirth'); }
+  get deathSumInsured() { return this.service.form.get('deathSumInsured'); }
+  get occupation() { return this.service.form.get('occupation'); }
 
   ngOnInit() {
 
@@ -29,6 +35,7 @@ export class PremiumComponent implements OnInit {
   onClear() {
     console.log('on clear was calld');
     console.log(this.service.form.value);
+    
   }
 
   selectionChanged(){
@@ -43,13 +50,13 @@ export class PremiumComponent implements OnInit {
       
       this.service.form.get('deathSumInsured');
       this.amount = this.service.form.get('deathSumInsured').value
-      this.age = this.service.form.get('age').value
+      this.ageSelected = this.service.form.get('age').value
 
       this.chosenOccupation = this.service.form.get('occupation').value;
       let selectedFactor = this.ratingFactors.find(x=> x.id == this.chosenOccupation);
       this.chosenFactor = selectedFactor.value;
 
-      this.premium = this.service.calculateMonthlyPremium(this.amount,this.chosenFactor,this.age);
+      this.premium = this.service.calculateMonthlyPremium(this.amount,this.chosenFactor,this.ageSelected);
 
     }
 
