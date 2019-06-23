@@ -6,4 +6,4 @@ Below are the assumptions made in the App for the test
 2)Input Age:Minimunage is 1 and max age is 150
 3)Input death Suminsured: minimum 0 and max 10000000
 4)Only english language support and $ currency is considered 
-5)Copy pasting to input feilds is not considered for validated
+5)Copy pasting to input feilds is not considered for validation
